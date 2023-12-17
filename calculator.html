@@ -7,7 +7,6 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js.js"></script>
   <style>
 
         input[type="text"] {
@@ -28,7 +27,13 @@
             font-size: 16px;
             margin: 5px;
         }
-        #c1::after{
+        #c1:hover{
+            opacity: 0.6;
+        }
+        #p1:hover{
+            opacity: 0.6;
+        }
+        #c2:hover{
             opacity: 0.6;
         }
 
@@ -36,8 +41,8 @@
 </head>
 <body style="text-align: center; margin-top: 130px; background-color: #B0E0E6; ; ">
 
-<div ></div>
-    <nav  class="navbar navbar-expand-lg bg-body-tertiary" style=" margin-top: -130px; background-color:#003366; ">
+<div >
+    <nav  class="navbar navbar-expand-lg bg-body-tertiary" style=" margin-top: -130px; background-color:#003366 !important;">
         <div style="background-color:#003366; border-color: #003366;   " class="container-fluid">
             <h4 class="navbar-brand" href="#" style="color: white;" ><strong> Calculator <span style="color: #BDB76B;">.net</span></strong></h4>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,27 +51,74 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <button id="c1"  class="nav-link active" aria-current="page" href="#" style="color: white; padding-left: 300px; width: auto;"><strong> classic calculator </strong></button>
+                <button id="c1"  class="nav-link active" aria-current="page" href="#" style="color: white;  border: none; background-color: #003366; width: auto; margin-left: 280px;"><strong> classic calculator </strong></button>
               </li>
               
               <li class="nav-item">
-                <button id="p1" class="nav-link" href="#" style="padding-left: 140px; color: white;"><strong> Programming calculator </strong></button>
+                <button id="p1" class="nav-link" href="#" style="color: white;  border: none; background-color: #003366; width: auto; margin-left: 150px;"><strong> Programming calculator </strong></button>
               </li>
 
             </ul>
           </div>
         </div>
       </nav>
+    </div>
 
 
 
+  <div id="classic calculator" >
+   
+    <script>
+        document.addEventListener("keydown", function(event) {
+          switch (event.key) {
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case ".":
+              appendToDisplay(event.key);
+              break;
+            case "/":
+            case "*":
+            case "-":
+            case "+":
+              appendToDisplay(event.key);
+              break;
+            case "Enter":
+              calculate();
+              break;
+            case "Escape":
+              clearDisplay();
+              break;
+            default:
+              break;
+          }
+        });
+      
+        function appendToDisplay(value) {
+          document.getElementById("result").value += value;
+        }
+      
+        function clearDisplay() {
+          document.getElementById("result").value = "";
+        }
+      
+        function calculate() {
+          var result = eval(document.getElementById("result").value);
+          document.getElementById("result").value = result;
+        }
+      </script>
 
-
-
-
-
-  <div id="classic calculator" style="margin-top: 75px; ">
-    <input type="text" id="result" style="width: 240px; color: rgb(33, 56, 160);   "  readonly>
+    <h2>Classic calculator</h2>
+    
+    <div style="margin: 50px;">
+    <input type="text" id="result" style="width: 240px; color: rgb(33, 56, 160);   "  placeholder="Enter a number" readonly>
     <br>
     <input type="button" value="1" onclick="appendToDisplay('1')" class="btn btn-outline-primary" >
     <input type="button" value="2" onclick="appendToDisplay('2')" class="btn btn-outline-primary" >
@@ -87,53 +139,65 @@
     <input type="button" value="." onclick="appendToDisplay('.')" class="btn btn-outline-primary" >
     <input type="button" value="C" onclick="clearDisplay()" class="btn btn-outline-primary" >
     <input type="button" value="=" onclick="calculate()" class="btn btn-outline-primary" >
+    
   </div>
-  
-
-
-
-
-
-
-    <script>
-        function convert() {
-            var inputNumber = document.getElementById('number').value;
-            var fromBase = document.getElementById('from').value;
-            var toBase = document.getElementById('to').value;
-
-            // Convert the input number to decimal
-            var decimalNumber = parseInt(inputNumber, fromBase === 'binary' ? 2 : fromBase === 'hexadecimal' ? 16 : 10);
-
-            // Convert the decimal number to the desired base
-            var result = decimalNumber.toString(toBase === 'binary' ? 2 : toBase === 'hexadecimal' ? 16 : 10);
-
-            document.getElementById('result').innerText = `Result: ${result}`;
-        }
-    </script>
-    <div id="Programming calculator" style="display: none;">
-    <h2>Programming calculator</h2>
-
-    <label for="number">Enter Number:</label>
-    <input type="text" id="number" placeholder="Enter a number">
-
-    <label for="from">From:</label>
-    <select id="from">
-        <option value="binary">Binary</option>
-        <option value="decimal" selected>Decimal</option>
-        <option value="hexadecimal">Hexadecimal</option>
-    </select>
-
-    <label for="to">To:</label>
-    <select id="to">
-        <option value="binary">Binary</option>
-        <option value="decimal" selected>Decimal</option>
-        <option value="hexadecimal">Hexadecimal</option>
-    </select>
-
-    <button onclick="convert()">Convert</button>
 </div>
 
+<script src="call-js.js"></script>
+
+
+
+    <div id="Programming calculator" style="display: none; ">
+   
+            <h2>Programming calculator</h2>
+            <div style="padding-top:20px;">
+                <label for="number">Enter Number:</label>
+                <input type="text" id="number" placeholder="Enter a number">
+            </div>
+            <div style="padding-top:20px;">
+                <label for="from">From:</label>
+                <select id="from">
+                    <option value="binary">Binary</option>
+                    <option value="decimal" selected>Decimal</option>
+                    <option value="hexadecimal">Hexadecimal</option>
+                </select>
+         
+                <label for="to">To:</label>
+                <select id="to">
+                    <option value="binary">Binary</option>
+                    <option value="decimal" selected>Decimal</option>
+                    <option value="hexadecimal">Hexadecimal</option>
+                </select>
+            </div>
+            <div style="padding-top:20px;">
+                <button onclick="convert()">Convert</button>
+            </div>
+            <div style="padding-top:20px;">
+                <label for="result">Result:</label>
+                <input type="text" id="result" style="color: black;" readonly />
+                
+            </div>
+         
+         </div>
+         <script>
+            function convert() {
+                var numberInput = document.getElementById("number").value;
+                var fromBase = document.getElementById("from").value;
+                var toBase = document.getElementById("to").value;
+        
+                // Convert the input number to decimal
+                var decimalNumber = parseInt(numberInput, fromBase === "binary" ? 2 : fromBase === "hexadecimal" ? 16 : 10);
+        
+                // Convert the decimal number to the desired base
+                var result = decimalNumber.toString(toBase === "binary" ? 2 : toBase === "hexadecimal" ? 16 : 10);
+        
+                // Display the result
+                document.getElementById("result").value = result.toUpperCase();
+            }
+        </script>
+
+
     
-  
+
 </body>
 </html>
